@@ -1,0 +1,1 @@
+const e={key:"animalsculpture",name:"动物塑测试",shortName:"动物塑",description:"通过60道精心设计的选择题，探索你的内心世界与人格特质",estimatedTime:15,questionCount:60,category:"人格测试",features:["深度人格分析","独特动物图腾","内心世界探索"],requiresConsent:!0,version:"1.0"};export{e as c};

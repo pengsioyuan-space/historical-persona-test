@@ -1,0 +1,1 @@
+import{r as e,j as i,R as n}from"./vue-vendor-kVwWhp8Z.js";function t(t=768){const r=e(!1),a=()=>{try{r.value=window.matchMedia("(max-width: ".concat(t,"px)")).matches}catch(e){r.value=window.innerWidth<=t}};return i(()=>{a(),window.addEventListener("resize",a)}),n(()=>{window.removeEventListener("resize",a)}),{isMobile:r}}export{t as u};

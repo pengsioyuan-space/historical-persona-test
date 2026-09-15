@@ -1,0 +1,586 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="module" crossorigin src="./assets/polyfills-D6vTJtE-.js"></script>
+
+    <title>Xinlitest Vip - 专业心理测评平台</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Xinlitest Vip - 专业的心理测评与分析系统，提供 SCL-90、MBTI、SRI、Dark Triad 等多种科学心理测评服务"
+    />
+    <link rel="icon" type="image/png" href="./assets/heart-icon-CxdoECUA.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/heart-icon-CxdoECUA.png" />
+    <!-- JetBrains Mono 等宽字体 - 用于授权码和URL显示，字符清晰不易混淆 -->
+    <!-- 使用 font-display: swap 确保字体加载失败时不阻塞渲染 -->
+    <link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+    <link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+    <!-- 字体加载失败不应影响页面功能，使用异步加载 + 超时处理 -->
+    <link href="https://fonts.loli.net/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" onerror="this.remove()">
+    <noscript>
+      <link href="https://fonts.loli.net/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    </noscript>
+    <!-- Cormorant Garamond 衬线字体 - 用于标题/标签/数字，赋予设计感 -->
+    <link href="https://fonts.loli.net/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" onerror="this.remove()">
+    <noscript>
+      <link href="https://fonts.loli.net/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+    </noscript>
+    <!-- 字体加载备用方案 -->
+    <style>
+      @font-face {
+        font-family: 'JetBrains Mono Fallback';
+        src: local('SF Mono'), local('Monaco'), local('Menlo'), local('Consolas'), local('monospace');
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Cormorant Garamond Fallback';
+        src: local('Times New Roman'), local('Times'), local('Georgia'), local('serif');
+        font-display: swap;
+      }
+    </style>
+
+    <style>
+      /* 防止页面刷新时白屏的初始样式 */
+      html {
+        background-color: #fafbfc;
+      }
+
+      html.dark {
+        background-color: #070707;
+      }
+    </style>
+
+    <script>
+      // 初始化 html class 主题属性
+      ;(function () {
+        try {
+          if (typeof Storage === 'undefined' || !window.localStorage) {
+            return
+          }
+
+          const themeType = localStorage.getItem('sys-theme')
+          if (themeType === 'dark') {
+            document.documentElement.classList.add('dark')
+          }
+        } catch (e) {
+          console.warn('Failed to apply initial theme:', e)
+        }
+      })()
+    </script>
+    <script type="module" crossorigin src="./assets/index-C2-dZ4Im.js"></script>
+    <link rel="modulepreload" crossorigin href="./assets/vue-vendor-kVwWhp8Z.js">
+    <link rel="modulepreload" crossorigin href="./assets/utils-B1JcmgUu.js">
+    <link rel="modulepreload" crossorigin href="./assets/export-libs-B8_VeC8h.js">
+    <link rel="modulepreload" crossorigin href="./assets/element-plus-qcSp4Sex.js">
+    <link rel="stylesheet" crossorigin href="./assets/index-DVIbeCaY.css">
+    <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();window.__vite_is_modern_browser=true</script>
+    <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 应用加载中的占位内容，Vue 挂载后会被替换 -->
+      <div id="app-loading" style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <div style="width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #409eff; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="margin-top: 16px; color: #666; font-size: 14px;">加载中...</p>
+      </div>
+      <style>
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+    </div>
+    
+    <!-- 全局错误处理：捕获未处理的JS错误 -->
+    <script>
+      // ========================================
+      // Chunk 加载失败自动重试（iOS Safari 兼容增强版）
+      // ========================================
+      var chunkRetryCount = 0;
+      var maxChunkRetry = 3;
+      var CHUNK_RETRY_PARAM = '__chunk_retry';
+      var CHUNK_RETRY_TS_PARAM = '__t';
+      
+      // 检测是否为 Safari/iOS
+      var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      
+      // ========================================
+      // 错误诊断信息收集
+      // ========================================
+      var errorDiagnostics = {
+        errors: [],           // 收集所有错误
+        failedResources: [],  // 失败的资源 URL
+        networkInfo: null,    // 网络状态
+        timings: {}           // 时间点记录
+      };
+      
+      errorDiagnostics.timings.pageStart = Date.now();
+      
+      // 收集设备和环境信息
+      function collectDiagnostics() {
+        var ua = navigator.userAgent;
+        var info = {
+          // 基础信息
+          timestamp: new Date().toISOString(),
+          url: location.href,
+          referrer: document.referrer,
+          
+          // 设备信息
+          userAgent: ua,
+          platform: navigator.platform,
+          language: navigator.language,
+          cookieEnabled: navigator.cookieEnabled,
+          
+          // iOS/Safari 特定信息
+          isIOS: isIOS,
+          isSafari: isSafari,
+          iosVersion: (ua.match(/OS (\d+)_(\d+)/) || []).slice(1).join('.') || 'unknown',
+          safariVersion: (ua.match(/Version\/(\d+\.\d+)/) || [])[1] || 'unknown',
+          
+          // 存储状态
+          localStorageAvailable: storageAvailable,
+          sessionStorageAvailable: (function() {
+            try { sessionStorage.setItem('__t', '1'); sessionStorage.removeItem('__t'); return true; } catch(e) { return false; }
+          })(),
+          
+          // 网络状态
+          online: navigator.onLine,
+          connection: null,
+          
+          // 性能数据
+          timing: null,
+          memory: null,
+          
+          // 错误详情
+          errors: errorDiagnostics.errors,
+          failedResources: errorDiagnostics.failedResources,
+          retryCount: chunkRetryCount,
+          
+          // 页面加载耗时
+          loadDuration: Date.now() - errorDiagnostics.timings.pageStart
+        };
+        
+        // 网络连接信息 (Network Information API)
+        if (navigator.connection) {
+          info.connection = {
+            effectiveType: navigator.connection.effectiveType,
+            downlink: navigator.connection.downlink,
+            rtt: navigator.connection.rtt,
+            saveData: navigator.connection.saveData
+          };
+        }
+        
+        // 性能数据
+        if (window.performance) {
+          try {
+            var timing = performance.timing;
+            if (timing) {
+              info.timing = {
+                dns: timing.domainLookupEnd - timing.domainLookupStart,
+                tcp: timing.connectEnd - timing.connectStart,
+                ttfb: timing.responseStart - timing.requestStart,
+                download: timing.responseEnd - timing.responseStart,
+                domReady: timing.domContentLoadedEventEnd - timing.navigationStart,
+                load: timing.loadEventEnd - timing.navigationStart
+              };
+            }
+            // 资源加载失败的详情
+            var resources = performance.getEntriesByType('resource');
+            info.resourceCount = resources.length;
+            info.failedResourceDetails = resources
+              .filter(function(r) { return r.transferSize === 0 && r.decodedBodySize === 0; })
+              .map(function(r) { return { name: r.name, duration: r.duration, type: r.initiatorType }; })
+              .slice(0, 10); // 最多记录10个
+          } catch (e) {}
+        }
+        
+        // 内存信息 (Chrome only, 但记录下来以防有用)
+        if (performance.memory) {
+          info.memory = {
+            usedJSHeapSize: performance.memory.usedJSHeapSize,
+            totalJSHeapSize: performance.memory.totalJSHeapSize,
+            jsHeapSizeLimit: performance.memory.jsHeapSizeLimit
+          };
+        }
+        
+        return info;
+      }
+      
+      // 监听资源加载失败
+      window.addEventListener('error', function(e) {
+        if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+          var src = e.target.src || e.target.href;
+          errorDiagnostics.failedResources.push({
+            type: e.target.tagName,
+            url: src,
+            time: Date.now() - errorDiagnostics.timings.pageStart
+          });
+          console.warn('[Diagnostic] 资源加载失败:', src);
+        }
+      }, true);
+      
+      // 上报错误到服务器
+      function reportError(diagnostics) {
+        // 方式1: 使用 sendBeacon (推荐，页面关闭时也能发送)
+        if (navigator.sendBeacon) {
+          try {
+            navigator.sendBeacon('/api/error-report', JSON.stringify(diagnostics));
+          } catch (e) {}
+        }
+        
+        // 方式2: 使用 fetch 作为备选
+        try {
+          fetch('/api/error-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(diagnostics),
+            keepalive: true  // 允许页面关闭后继续发送
+          }).catch(function() {});
+        } catch (e) {}
+        
+        // 方式3: 保存到 localStorage 供后续查看
+        try {
+          var errorLog = JSON.parse(localStorage.getItem('__error_log') || '[]');
+          errorLog.push(diagnostics);
+          // 只保留最近5条
+          if (errorLog.length > 5) errorLog = errorLog.slice(-5);
+          localStorage.setItem('__error_log', JSON.stringify(errorLog));
+        } catch (e) {}
+      }
+      
+      function getUrlRetryCount() {
+        try {
+          var url = new URL(location.href);
+          return parseInt(url.searchParams.get(CHUNK_RETRY_PARAM) || '0', 10) || 0;
+        } catch (e) {
+          return 0;
+        }
+      }
+
+      function setUrlRetryCount(count) {
+        try {
+          var url = new URL(location.href);
+          url.searchParams.set(CHUNK_RETRY_PARAM, String(count));
+          url.searchParams.set(CHUNK_RETRY_TS_PARAM, String(Date.now()));
+          location.replace(url.toString());
+        } catch (e) {
+          // Safari 某些情况下 URL 操作可能失败，直接强制刷新
+          location.href = location.href.split('?')[0] + '?__t=' + Date.now();
+        }
+      }
+
+      function clearUrlRetryCount() {
+        try {
+          var url = new URL(location.href);
+          url.searchParams.delete(CHUNK_RETRY_PARAM);
+          url.searchParams.delete(CHUNK_RETRY_TS_PARAM);
+          history.replaceState(null, '', url.toString());
+        } catch (e) {}
+      }
+      
+      // 强制清除缓存刷新（Safari 专用）
+      function hardReload() {
+        try {
+          // 清除可能的缓存
+          if ('caches' in window) {
+            caches.keys().then(function(names) {
+              names.forEach(function(name) {
+                caches.delete(name);
+              });
+            });
+          }
+        } catch (e) {}
+        // 添加时间戳强制绕过缓存
+        var baseUrl = location.href.split('?')[0];
+        location.href = baseUrl + '?__nocache=' + Date.now();
+      }
+      
+      function isChunkLoadError(msg) {
+        if (!msg) return false;
+        var msgStr = String(msg).toLowerCase();
+        return msgStr.indexOf('loading chunk') !== -1 ||
+               msgStr.indexOf('failed to fetch') !== -1 ||
+               msgStr.indexOf('loading css chunk') !== -1 ||
+               msgStr.indexOf('unable to preload') !== -1 ||
+               msgStr.indexOf('dynamically imported module') !== -1 ||
+               msgStr.indexOf("unexpected token '<'") !== -1 ||
+               msgStr.indexOf("unexpected token 'export'") !== -1 ||
+               msgStr.indexOf('syntax error') !== -1 ||
+               (msgStr.indexOf('mime type') !== -1 && msgStr.indexOf('text/html') !== -1) ||
+               msgStr.indexOf('chunkloaderror') !== -1 ||
+               msgStr.indexOf('network error') !== -1 ||
+               msgStr.indexOf('module specifier') !== -1;
+      }
+      
+      function handleChunkError() {
+        // 从 sessionStorage 读取重试次数
+        try {
+          chunkRetryCount = parseInt(sessionStorage.getItem('chunk-global-retry') || '0', 10);
+        } catch (e) {
+          chunkRetryCount = getUrlRetryCount();
+        }
+        
+        console.warn('[App] Chunk 加载失败，当前重试次数:', chunkRetryCount, '/', maxChunkRetry);
+        
+        if (chunkRetryCount < maxChunkRetry) {
+          try {
+            sessionStorage.setItem('chunk-global-retry', String(chunkRetryCount + 1));
+          } catch (e) {}
+          
+          // 延迟刷新，Safari 使用更长延迟
+          var delay = (isSafari || isIOS) ? 800 : 500;
+          setTimeout(function() {
+            setUrlRetryCount(chunkRetryCount + 1);
+          }, delay);
+          return true;
+        } else {
+          // 重试次数用完，清除计数并显示错误
+          try {
+            sessionStorage.removeItem('chunk-global-retry');
+          } catch (e) {}
+          clearUrlRetryCount();
+          showErrorUI();
+          return false;
+        }
+      }
+      
+      // 存储最近的错误信息用于诊断
+      var lastErrorInfo = '';
+      var lastErrorStack = '';
+      var lastErrorUrl = '';
+      
+      function showErrorUI() {
+        var loadingEl = document.getElementById('app-loading');
+        if (loadingEl) {
+          // 生成错误码
+          var errorCode = 'E' + Date.now().toString(36).toUpperCase().slice(-6);
+          var deviceInfo = (isIOS ? 'iOS' : 'Other') + '/' + (isSafari ? 'Safari' : 'Browser');
+          
+          // 收集完整诊断信息
+          var diagnostics = collectDiagnostics();
+          diagnostics.errorCode = errorCode;
+          diagnostics.lastError = lastErrorInfo;
+          diagnostics.lastErrorStack = lastErrorStack;
+          diagnostics.lastErrorUrl = lastErrorUrl;
+          
+          // 上报错误
+          reportError(diagnostics);
+          
+          // 生成诊断摘要
+          var diagSummary = [
+            'iOS: ' + diagnostics.iosVersion,
+            'Safari: ' + diagnostics.safariVersion,
+            (diagnostics.online ? '在线' : '离线'),
+            diagnostics.connection ? diagnostics.connection.effectiveType : '',
+            (diagnostics.localStorageAvailable ? '' : '存储不可用'),
+            '重试' + diagnostics.retryCount + '次'
+          ].filter(Boolean).join(' | ');
+          
+          // 失败资源列表
+          var failedList = diagnostics.failedResources.length > 0 
+            ? '<p style="color: #909399; font-size: 9px; margin-top: 8px; word-break: break-all;">失败: ' + 
+              diagnostics.failedResources.map(function(r) { return r.url.split('/').pop(); }).slice(0, 3).join(', ') + '</p>'
+            : '';
+          
+          var iosTip = isIOS ? 
+            '<p style="color: #e6a23c; font-size: 11px; margin-top: 8px;">iOS: 设置 - Safari - 清除历史记录与网站数据</p>' : '';
+          
+          loadingEl.innerHTML = 
+            '<div style="text-align: center; padding: 20px; max-width: 360px;">' +
+              '<p style="color: #f56c6c; margin-bottom: 12px; font-size: 16px;">页面加载出错</p>' +
+              '<p style="color: #909399; font-size: 13px; margin-bottom: 8px;">可能是网络波动或缓存问题</p>' +
+              iosTip +
+              '<div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">' +
+                '<button onclick="clearAllAndReload()" style="padding: 10px 24px; background: #409eff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">清除数据并刷新</button>' +
+                '<button onclick="hardReload()" style="padding: 10px 24px; background: #e6a23c; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">强制刷新</button>' +
+              '</div>' +
+              '<p style="color: #c0c4cc; font-size: 10px; margin-top: 16px;">错误码: ' + errorCode + ' | ' + deviceInfo + '</p>' +
+              '<p style="color: #c0c4cc; font-size: 9px; margin-top: 4px;">' + diagSummary + '</p>' +
+              failedList +
+              '<button onclick="toggleDiagDetails()" style="margin-top: 12px; padding: 6px 12px; background: transparent; color: #909399; border: 1px solid #dcdfe6; border-radius: 4px; cursor: pointer; font-size: 11px;">显示诊断信息</button>' +
+              '<pre id="diag-details" style="display: none; text-align: left; font-size: 9px; background: #f5f7fa; padding: 10px; border-radius: 4px; margin-top: 10px; max-height: 200px; overflow: auto; white-space: pre-wrap; word-break: break-all;"></pre>' +
+              '<button onclick="copyDiagnostics()" id="copy-btn" style="display: none; margin-top: 8px; padding: 6px 12px; background: #67c23a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">复制诊断信息</button>' +
+            '</div>';
+          
+          // 保存诊断数据
+          window.__lastDiagnostics = diagnostics;
+          var detailsEl = document.getElementById('diag-details');
+          if (detailsEl) detailsEl.textContent = JSON.stringify(diagnostics, null, 2);
+          
+          console.error('[App] 错误码:', errorCode);
+          console.error('[App] 诊断信息:', diagnostics);
+        }
+      }
+      
+      // 切换诊断详情
+      function toggleDiagDetails() {
+        var el = document.getElementById('diag-details');
+        var copyBtn = document.getElementById('copy-btn');
+        if (el) {
+          var isHidden = el.style.display === 'none';
+          el.style.display = isHidden ? 'block' : 'none';
+          if (copyBtn) copyBtn.style.display = isHidden ? 'inline-block' : 'none';
+        }
+      }
+      
+      // 复制诊断信息
+      function copyDiagnostics() {
+        if (window.__lastDiagnostics) {
+          var text = JSON.stringify(window.__lastDiagnostics, null, 2);
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(function() {
+              alert('已复制，请发送给技术支持');
+            }).catch(function() {
+              prompt('请复制:', text);
+            });
+          } else {
+            prompt('请复制:', text);
+          }
+        }
+      }
+      
+      // 清除所有本地存储并刷新（解决损坏数据问题）
+      function clearAllAndReload() {
+        try {
+          // 清除 localStorage
+          localStorage.clear();
+        } catch (e) {}
+        try {
+          // 清除 sessionStorage
+          sessionStorage.clear();
+        } catch (e) {}
+        try {
+          // 清除 Cache API
+          if ('caches' in window) {
+            caches.keys().then(function(names) {
+              names.forEach(function(name) { caches.delete(name); });
+            });
+          }
+        } catch (e) {}
+        // 稍微延迟确保清理完成
+        setTimeout(function() {
+          location.href = location.href.split('?')[0] + '?__cleared=' + Date.now();
+        }, 100);
+      }
+      
+      window.onerror = function(msg, url, line, col, error) {
+        console.error('全局错误:', msg, url, line, col, error);
+        
+        // 记录详细错误信息
+        lastErrorInfo = 'onerror: ' + String(msg).substring(0, 300);
+        lastErrorUrl = url || '';
+        lastErrorStack = (error && error.stack) ? error.stack.substring(0, 500) : '';
+        
+        // 收集到诊断数据
+        errorDiagnostics.errors.push({
+          type: 'onerror',
+          message: String(msg).substring(0, 300),
+          url: url,
+          line: line,
+          col: col,
+          stack: lastErrorStack,
+          time: Date.now() - errorDiagnostics.timings.pageStart
+        });
+        
+        // 检测是否为 Chunk 加载失败
+        if (isChunkLoadError(msg) || (error && isChunkLoadError(error.message))) {
+          lastErrorInfo += ' [Chunk]';
+          console.warn('[App] 检测到 Chunk 加载失败，准备重试...');
+          return handleChunkError();
+        }
+        
+        // 其他错误显示错误提示
+        showErrorUI();
+        return false;
+      };
+      
+      // 捕获未处理的 Promise rejection（动态 import 失败）
+      window.onunhandledrejection = function(event) {
+        var reason = event.reason;
+        var msg = reason && (reason.message || String(reason));
+        var stack = (reason && reason.stack) ? reason.stack.substring(0, 500) : '';
+        
+        // 记录详细错误信息
+        lastErrorInfo = 'rejection: ' + String(msg).substring(0, 300);
+        lastErrorStack = stack;
+        
+        // 收集到诊断数据
+        errorDiagnostics.errors.push({
+          type: 'unhandledrejection',
+          message: String(msg).substring(0, 300),
+          stack: stack,
+          time: Date.now() - errorDiagnostics.timings.pageStart
+        });
+        
+        if (isChunkLoadError(msg)) {
+          lastErrorInfo += ' [Chunk]';
+          console.warn('[App] 检测到 Promise rejection (Chunk 加载失败):', msg);
+          event.preventDefault();
+          handleChunkError();
+        } else {
+          // 非 Chunk 错误也显示错误页面
+          showErrorUI();
+        }
+      };
+      
+      // 应用加载成功后清除重试计数
+      window.addEventListener('load', function() {
+        try {
+          sessionStorage.removeItem('chunk-global-retry');
+        } catch (e) {}
+        clearUrlRetryCount();
+        
+        // 检测CSS是否加载失败（通过检测asset-missing.css的标记）
+        setTimeout(function() {
+          try {
+            var bodyAfter = window.getComputedStyle(document.body, '::after');
+            var content = bodyAfter.getPropertyValue('content');
+            // 检测到CSS缺失标记
+            if (content && content.indexOf('css-missing-fallback') !== -1) {
+              console.warn('[App] 检测到CSS文件缺失，触发刷新...');
+              // 防止无限刷新
+              var cssRetryKey = '__css_missing_retry';
+              var cssRetryCount = parseInt(sessionStorage.getItem(cssRetryKey) || '0', 10);
+              if (cssRetryCount < 2) {
+                sessionStorage.setItem(cssRetryKey, String(cssRetryCount + 1));
+                location.href = location.href.split('?')[0] + '?__css_fix=' + Date.now();
+              } else {
+                sessionStorage.removeItem(cssRetryKey);
+                console.error('[App] CSS缺失问题持续，已达重试上限');
+              }
+            } else {
+              // CSS正常，清除重试计数
+              sessionStorage.removeItem('__css_missing_retry');
+            }
+          } catch (e) {
+            console.warn('[App] CSS检测失败:', e);
+          }
+        }, 1000); // 等待1秒确保CSS已加载
+      });
+      
+      // 检测 localStorage 是否可用（Safari 隐私模式下不可用）
+      var storageAvailable = false;
+      try {
+        localStorage.setItem('__test__', '1');
+        localStorage.removeItem('__test__');
+        storageAvailable = true;
+      } catch (e) {
+        console.warn('localStorage 不可用（可能是隐私模式），将使用内存存储');
+      }
+      
+      // Safari 隐私模式检测与提示
+      if ((isSafari || isIOS) && !storageAvailable) {
+        console.warn('[App] 检测到 Safari 隐私模式，部分功能可能受限');
+      }
+    </script>
+    
+    <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
+    <script nomodule crossorigin id="vite-legacy-polyfill" src="./assets/polyfills-legacy-JVF1ikB4.js"></script>
+    <script nomodule crossorigin id="vite-legacy-entry" data-src="./assets/index-legacy-CkMv4icu.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  </body>
+</html>
+

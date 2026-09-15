@@ -1,0 +1,1 @@
+import"./index-C2-dZ4Im.js";/* empty css                     *//* empty css                */import{E as s}from"./element-plus-qcSp4Sex.js";const e=(e,a)=>s({message:e,type:"success",customClass:"primary-message",...a}),a=(e,a)=>s({message:e,type:"error",...a}),r=(e,a)=>s({message:e,type:"warning",...a});export{a,r as b,e as s};
