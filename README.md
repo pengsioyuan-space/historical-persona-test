@@ -6,10 +6,19 @@ https://xinlitest.vip/historicalpersona/v5rcozr538evgu55be4gutg9zrq7hqtz/
 
 The files were downloaded as static frontend assets for preservation/deployment. No backend database, account data, secrets, or server-side services are included.
 
+## GitHub Pages
+
+This backup is adapted for GitHub Pages project hosting under:
+
+https://pengsioyuan-space.github.io/historical-persona-test/
+
+The routed page can be opened at:
+
+https://pengsioyuan-space.github.io/historical-persona-test/historicalpersona/v5rcozr538evgu55be4gutg9zrq7hqtz/
+
 ## Files
 
 - `index.html` - static entry page
 - `404.html` - SPA fallback for static hosting
 - `assets/` - downloaded frontend JS/CSS/image/font assets referenced by the page
 - `.nojekyll` - disables GitHub Pages Jekyll processing
-
